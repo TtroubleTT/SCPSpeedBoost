@@ -24,24 +24,16 @@ namespace SCPSpeedBoost
         [Description("Whether or not the effect will apply to the specified SCPs when you forceclass them:")]
         public bool EffectOnForceclass { get; set; } = true;
         */
-
-        [Description("SCP 173s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP173Boost { get; set; } = 0;
-
-        [Description("SCP 096s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP096Boost { get; set; } = 0;
-
-        [Description("SCP 106s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP106Boost { get; set; } = 0;
-
-        [Description("SCP 939s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP939Boost { get; set; } = 0;
-
-        [Description("SCP 049s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP049Boost { get; set; } = 0;
-
-        [Description("SCP 049-2s Movement Boost percentage (up to 255). Leave 0 for no boost:")]
-        public byte SCP0492Boost { get; set; } = 0;
-
+        
+        [Description("The speed boost for SCPs (up to 255). Leave 0 for no boost:")]
+        public Dictionary<RoleTypeId, byte> SpeedBoost { get; set; } = new Dictionary<RoleTypeId, byte>
+        {
+            [RoleTypeId.Scp173] = 0,
+            [RoleTypeId.Scp096] = 0,
+            [RoleTypeId.Scp106] = 0,
+            [RoleTypeId.Scp939] = 0,
+            [RoleTypeId.Scp049] = 0,
+            [RoleTypeId.Scp0492] = 0
+        };
     }
 }
