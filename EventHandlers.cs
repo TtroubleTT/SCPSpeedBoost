@@ -12,6 +12,7 @@ using Exiled.Events.EventArgs.Player;
 using PlayerRoles;
 using MEC;
 using Exiled.Events.Handlers;
+using Player = Exiled.Events.Handlers.Player;
 
 namespace SCPSpeedBoost
 {
@@ -20,31 +21,9 @@ namespace SCPSpeedBoost
     {
         public static void ChangingRole(ChangingRoleEventArgs ev)
         {
-            switch (ev.NewRole)
-            {
-                case RoleTypeId.Scp173:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP173Boost));
-                    break;
-                case RoleTypeId.Scp096:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP096Boost));
-                    break;
-                case RoleTypeId.Scp106:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP106Boost));
-                    break;
-                case RoleTypeId.Scp939:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP939Boost));
-                    break;
-                case RoleTypeId.Scp049:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP049Boost));
-                    break;
-                case RoleTypeId.Scp0492:
-                    Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, Plugin.plugin.Config.SCP0492Boost));
-                    break;
-                case RoleTypeId.Spectator:
-                    ev.Player.DisableEffect(EffectType.MovementBoost);
-                    break;
-
-            }
+            if (!Plugin.plugin.Config.SpeedBoost.TryGetValue(ev.NewRole, out byte speedBoost)) return;
+            if (speedBoost <= 0) return;
+            Timing.CallDelayed(2f, () => Methods.AddEffect(ev.Player, speedBoost));
         }
     }
 }
